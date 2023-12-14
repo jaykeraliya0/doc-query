@@ -1,3 +1,4 @@
+import { db } from "@/db";
 import NextAuth from "next-auth";
 import { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
@@ -11,6 +12,43 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GITHUB_APP_CLIENT_SECRET as string,
     }),
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials }) {
+      const dbUser = await db.user.findFirst({
+        where: { email: user.email || "" },
+      });
+
+      if (!dbUser) {
+        await db.user.create({
+          data: {
+            email: user.email!,
+            name: user.name!,
+          },
+        });
+      }
+
+      return true;
+    },
+    async session({ session, token, user }) {
+      const dbUser = await db.user.findFirst({
+        where: { email: user.email },
+      });
+
+      if (!dbUser) {
+        const dbUser = await db.user.create({
+          data: {
+            email: user.email!,
+            name: user.name!,
+          },
+        });
+        session.user = dbUser;
+        return session;
+      }
+
+      session.user = dbUser;
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);
