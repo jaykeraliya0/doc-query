@@ -29,25 +29,6 @@ export const authOptions: NextAuthOptions = {
 
       return true;
     },
-    async session({ session, token, user }) {
-      const dbUser = await db.user.findFirst({
-        where: { email: user.email },
-      });
-
-      if (!dbUser) {
-        const dbUser = await db.user.create({
-          data: {
-            email: user.email!,
-            name: user.name!,
-          },
-        });
-        session.user = dbUser;
-        return session;
-      }
-
-      session.user = dbUser;
-      return session;
-    },
   },
 };
 
