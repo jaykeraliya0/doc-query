@@ -1,6 +1,7 @@
 import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
 import fileUploader from "@/lib/fileUploader";
+import { getUser } from "@/lib/getUser";
 import { pinecone } from "@/lib/pinecone";
 import { getUserSubscription } from "@/lib/stripe";
 import { PDFLoader } from "langchain/document_loaders/fs/pdf";
@@ -10,15 +11,7 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  const session = await getServerSession();
-  if (!session || !session.user)
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-  const user = await db.user.findFirst({
-    where: {
-      email: session.user.email!,
-    },
-  });
+  const user = await getUser();
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 

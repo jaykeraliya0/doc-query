@@ -1,24 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PLANS } from "@/config/stripe";
-import { db } from "@/db";
 import { getUserSubscription, stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
-import { getServerSession } from "next-auth";
+import { getUser } from "@/lib/getUser";
 
 export async function GET(request: NextRequest, response: NextResponse) {
   try {
     const billingUrl = absoluteUrl("/");
 
-    // console.log("billingUrl", billingUrl);
-
-    const session = await getServerSession();
-    // console.log("session", session);
-    if (!session || !session.user)
-      return NextResponse.json({ data: "Unauthorized" }, { status: 401 });
-
-    const user = await db.user.findUnique({
-      where: { email: session.user.email! },
-    });
+    const user = await getUser();
     if (!user)
       return NextResponse.json({ data: "Unauthorized" }, { status: 401 });
 
