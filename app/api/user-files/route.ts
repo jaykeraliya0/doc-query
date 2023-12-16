@@ -15,7 +15,7 @@ export async function POST(request: NextRequest, response: NextResponse) {
   if (!user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const file = (await request.formData()).get("pdf") as File;
+  const file = (await request.formData()).get("file") as File;
   if (!file) return NextResponse.json({ error: "No file" }, { status: 401 });
 
   const userSubscription = await getUserSubscription();
@@ -94,4 +94,36 @@ export async function POST(request: NextRequest, response: NextResponse) {
     });
     return NextResponse.json({ error }, { status: 401 });
   }
+}
+
+export async function GET(request: NextRequest, response: NextResponse) {
+  const user = await getUser();
+
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const files = await db.file.findMany({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  return NextResponse.json(files);
+}
+
+export async function DELETE(request: NextRequest, response: NextResponse) {
+  const user = await getUser();
+
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const { id } = await request.json();
+
+  const file = await db.file.findUnique({ where: { id } });
+  if (!file)
+    return NextResponse.json({ error: "File not found" }, { status: 404 });
+
+  await db.file.delete({ where: { id } });
+
+  return NextResponse.json(file);
 }
