@@ -1,75 +1,104 @@
+import { PLANS } from "@/config/stripe";
 import { db } from "@/db";
+import fileUploader from "@/lib/fileUploader";
+import { pinecone } from "@/lib/pinecone";
+import { getUserSubscription } from "@/lib/stripe";
+import { PDFLoader } from "langchain/document_loaders/fs/pdf";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-
-const s3 = new S3Client({
-  region: process.env.AWS_BUCKET_REGION!,
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
-  },
-});
-
-const acceptedTypes = ["application/pdf"];
-
-const maxFileSize = 1024 * 1024 * 10; // 10MB
 
 export async function POST(request: NextRequest, response: NextResponse) {
-  try {
-    const session = await getServerSession();
-    if (!session || !session.user)
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const user = await db.user.findFirst({
-      where: {
-        email: session.user.email!,
-      },
-    });
-    if (!user)
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-
-    const formData = await request.formData();
-    const file = formData.get("pdf") as File;
-
-    if (!file) return NextResponse.json({ error: "No file" }, { status: 400 });
-
-    if (!acceptedTypes.includes(file.type))
-      return NextResponse.json({ error: "Invalid file type" }, { status: 400 });
-
-    if (file.size > maxFileSize)
-      return NextResponse.json({ error: "File too large" }, { status: 400 });
-
-    const timestamp = Date.now();
-
-    const putObjectCommand = new PutObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME!,
-      Key: `${user.id}+${file.name}`,
-      ContentType: file.type,
-      ContentLength: file.size,
-      Metadata: {
-        userId: user.id,
-      },
-    });
-
-    const signedUrl = await getSignedUrl(s3, putObjectCommand, {
-      expiresIn: 60,
-    });
-
-    await fetch(signedUrl, {
-      method: "PUT",
-      body: file,
-      headers: {
-        "Content-Type": file.type,
-      },
-    });
-
-    const publicUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${user.id}%2B${file.name}`;
-
-    return NextResponse.json({ url: publicUrl }, { status: 200 });
-  } catch (error) {
-    console.error(error);
+  const session = await getServerSession();
+  if (!session || !session.user)
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const user = await db.user.findFirst({
+    where: {
+      email: session.user.email!,
+    },
+  });
+  if (!user)
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const file = (await request.formData()).get("pdf") as File;
+  if (!file) return NextResponse.json({ error: "No file" }, { status: 401 });
+
+  const userSubscription = await getUserSubscription();
+  const { isSubscribed } = userSubscription;
+
+  const key = await fileUploader({
+    file,
+    user,
+    maxFileSize: isSubscribed ? 16 * 1024 * 1024 : 4 * 1024 * 1024,
+  });
+
+  const createdFile = await db.file.create({
+    data: {
+      key: key,
+      name: file.name,
+      userId: user.id,
+      url: `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${key}`,
+      uploadStatus: "PROCESSING",
+    },
+  });
+
+  try {
+    const res = await fetch(
+      `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${key}`
+    );
+    const blob = await res.blob();
+    const loader = new PDFLoader(blob);
+    const pageLevelDocs = await loader.load();
+    const pagesAmt = pageLevelDocs.length;
+
+    const isProExceeded =
+      pagesAmt > PLANS.find((p) => p.name === "Pro")!.pagesPerPdf;
+    const isFreeExceeded =
+      pagesAmt > PLANS.find((p) => p.name === "Free")!.pagesPerPdf;
+
+    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      await db.file.update({
+        data: {
+          uploadStatus: "FAILED",
+        },
+        where: {
+          id: createdFile.id,
+        },
+      });
+    }
+
+    const pineconeIndex = pinecone.Index("doc-query");
+
+    const embeddings = new OpenAIEmbeddings({
+      openAIApiKey: process.env.OPENAI_API_KEY,
+    });
+
+    await PineconeStore.fromDocuments(pageLevelDocs, embeddings, {
+      pineconeIndex,
+      namespace: createdFile.id,
+    });
+
+    await db.file.update({
+      data: {
+        uploadStatus: "SUCCESS",
+      },
+      where: {
+        id: createdFile.id,
+      },
+    });
+
+    return NextResponse.json(createdFile);
+  } catch (error) {
+    await db.file.update({
+      data: {
+        uploadStatus: "FAILED",
+      },
+      where: {
+        id: createdFile.id,
+      },
+    });
+    return NextResponse.json({ error }, { status: 401 });
   }
 }
