@@ -126,7 +126,7 @@ export default function Dashboard({ subscriptionPlan }: Props) {
               role="status"
               className="flex items-center justify-center h-36 max-w-sm bg-gray-300 rounded-lg animate-pulse"
             >
-              <File className="h-8 w-8 text-zinc-800" />
+              <File className="h-8 w-8 text-zinc-600" />
               <span className="sr-only">Loading...</span>
             </div>
           ))}
