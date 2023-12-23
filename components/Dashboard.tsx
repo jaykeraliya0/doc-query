@@ -108,20 +108,13 @@ export default function Dashboard({ subscriptionPlan }: Props) {
             ))}
         </ul>
       ) : isLoading ? (
-        <div className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-200 md:grid-cols-2 lg:grid-cols-3">
-          {new Array(3).fill(null).map((_, i) => (
-            <div
-              key={i}
-              role="status"
-              className="flex items-center justify-center h-36 max-w-sm bg-gray-300 rounded-lg animate-pulse"
-            >
-              <File className="h-8 w-8 text-zinc-600" />
-              <span className="sr-only">Loading...</span>
-            </div>
-          ))}
-        </div>
-      ) : (
         <Skeleton height={100} className="my-2" count={3} />
+      ) : (
+        <div className="mt-16 flex flex-col items-center gap-2">
+          <Ghost className="h-8 w-8 text-zinc-800" />
+          <h3 className="font-semibold text-xl">Pretty empty around here...</h3>
+          <p>Let&apos;s upload your first PDF</p>
+        </div>
       )}
     </main>
   );
