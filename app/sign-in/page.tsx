@@ -1,12 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { signIn, useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export default function Page() {
   const { status } = useSession();
 
   if (status === "loading") return null;
-  if (status === "authenticated") return (window.location.href = "/");
+  if (status === "authenticated") return redirect("/");
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
