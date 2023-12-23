@@ -1,8 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function Page() {
+  const { status } = useSession();
+
+  if (status === "loading") return null;
+  if (status === "unauthenticated") return (window.location.href = "/sign-in");
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
