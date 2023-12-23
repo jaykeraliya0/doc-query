@@ -12,6 +12,7 @@ import Link from "next/link";
 import { Avatar, AvatarFallback } from "./ui/avatar";
 import { Gem } from "lucide-react";
 import { Icons } from "./Icons";
+import LogOut from "./LogOut";
 
 interface Props {
   email: string | undefined;
@@ -67,7 +68,9 @@ export default async function UserAccountNav({ email, imageUrl, name }: Props) {
 
         <DropdownMenuItem asChild>
           {subscriptionPlan?.isSubscribed ? (
-            <Link href="/dashboard/billing">Manage Subscription</Link>
+            <Link href="/dashboard/billing" className="cursor-pointer">
+              Manage Subscription
+            </Link>
           ) : (
             <Link href="/pricing" className="cursor-pointer">
               Upgrade <Gem className="text-blue-600 h-4 w-4 ml-1.5" />
@@ -78,7 +81,7 @@ export default async function UserAccountNav({ email, imageUrl, name }: Props) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem className="cursor-pointer">
-          <Link href="/logout">Log out</Link>
+          <LogOut />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

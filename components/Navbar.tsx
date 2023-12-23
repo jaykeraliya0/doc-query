@@ -37,21 +37,13 @@ export default async function Navbar() {
                   Pricing
                 </Link>
                 <Link
-                  href={"/api/auth/signin"}
+                  href={"/sign-inin"}
                   className={buttonVariants({
                     variant: "ghost",
                     size: "sm",
                   })}
                 >
                   Sign in
-                </Link>
-                <Link
-                  href={"/api/auth/signin"}
-                  className={buttonVariants({
-                    size: "sm",
-                  })}
-                >
-                  Get started <ArrowRightIcon className="ml-1.5 w-5 h-5" />
                 </Link>
               </>
             ) : (
