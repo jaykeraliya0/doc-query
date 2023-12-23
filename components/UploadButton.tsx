@@ -125,6 +125,7 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
                 type="file"
                 id="dropzone-file"
                 className="hidden"
+                disabled
               />
             </label>
           </div>

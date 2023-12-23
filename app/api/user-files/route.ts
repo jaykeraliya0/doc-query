@@ -106,6 +106,9 @@ export async function GET(request: NextRequest, response: NextResponse) {
     where: {
       userId: user.id,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   return NextResponse.json(files);
