@@ -12,18 +12,6 @@ interface Props {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscription>>;
 }
 
-type File = {
-  id: string;
-  name: string;
-  uploadStatus: string;
-  url: string;
-  key: string;
-
-  createdAt: string;
-  updatedAt: string;
-  userId: string;
-};
-
 export default function Dashboard({ subscriptionPlan }: Props) {
   const [currentlyDeleting, setCurrentlyDeleting] = useState<string | null>(
     null
@@ -33,7 +21,7 @@ export default function Dashboard({ subscriptionPlan }: Props) {
 
   const { data: files, isLoading } = useQuery("files", async () => {
     const res = await fetch("/api/user-files");
-    return (await res.json()) as File[];
+    return (await res.json()) as DBFile[];
   });
 
   const { mutate: deleteFile, error } = useMutation(
@@ -42,7 +30,7 @@ export default function Dashboard({ subscriptionPlan }: Props) {
         method: "DELETE",
         body: JSON.stringify({ id }),
       });
-      return (await res.json()) as File[];
+      return (await res.json()) as DBFile[];
     },
     {
       onSuccess: () => {

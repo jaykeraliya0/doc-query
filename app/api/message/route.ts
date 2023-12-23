@@ -3,8 +3,7 @@ import { openai } from "@/lib/openai";
 import { pinecone } from "@/lib/pinecone";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { NextRequest } from "next/server";
-import { OpenAIStream, StreamingTextResponse } from "ai";
+import { NextRequest, NextResponse } from "next/server";
 import { getUser } from "@/lib/getUser";
 
 export const POST = async (req: NextRequest) => {
@@ -66,7 +65,7 @@ export const POST = async (req: NextRequest) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo-16k",
     temperature: 0,
-    stream: true,
+    stream: false,
     messages: [
       {
         role: "system",
@@ -95,18 +94,53 @@ export const POST = async (req: NextRequest) => {
     ],
   });
 
-  const stream = OpenAIStream(response, {
-    async onCompletion(completion) {
-      await db.message.create({
-        data: {
-          text: completion,
-          isUserMessage: false,
-          userId,
-          fileId,
-        },
-      });
+  const aiMessage = response.choices[0].message.content;
+
+  await db.message.create({
+    data: {
+      text: aiMessage!,
+      isUserMessage: false,
+      userId,
+      fileId,
     },
   });
 
-  return new StreamingTextResponse(stream);
+  return NextResponse.json(aiMessage, { status: 200 });
 };
+
+export async function GET(req: NextRequest) {
+  const fileId = req.nextUrl.searchParams.get("fileId");
+
+  const user = await getUser();
+
+  if (!user) return new Response("Unauthorized", { status: 401 });
+  const { id: userId } = user;
+
+  if (!fileId) return new Response("Bad request", { status: 400 });
+
+  const file = await db.file.findFirst({
+    where: {
+      id: fileId,
+      userId,
+    },
+  });
+
+  if (!file) return new Response("Not found", { status: 404 });
+
+  const messages = await db.message.findMany({
+    where: {
+      fileId,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      id: true,
+      isUserMessage: true,
+      createdAt: true,
+      text: true,
+    },
+  });
+
+  return NextResponse.json(messages, { status: 200 });
+}
