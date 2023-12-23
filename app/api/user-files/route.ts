@@ -21,6 +21,12 @@ export async function POST(request: NextRequest, response: NextResponse) {
   const userSubscription = await getUserSubscription();
   const { isSubscribed } = userSubscription;
 
+  if (file.size > 16 * 1024 * 1024 && isSubscribed)
+    return NextResponse.json({ error: "File too large" }, { status: 401 });
+
+  if (file.size > 4 * 1024 * 1024 && !isSubscribed)
+    return NextResponse.json({ error: "File too large" }, { status: 401 });
+
   const key = await fileUploader({
     file,
     user,
@@ -105,9 +111,6 @@ export async function GET(request: NextRequest, response: NextResponse) {
   const files = await db.file.findMany({
     where: {
       userId: user.id,
-    },
-    orderBy: {
-      createdAt: "desc",
     },
   });
 

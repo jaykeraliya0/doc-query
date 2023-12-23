@@ -47,9 +47,10 @@ function UploadDropzone({ isSubscribed }: { isSubscribed: boolean }) {
         });
 
         if (!res.ok) {
+          const response = await res.json();
           return toast({
             title: "Something went wrong",
-            description: "Please try again later",
+            description: response.message ?? "Refresh and try again",
             variant: "destructive",
           });
         }
