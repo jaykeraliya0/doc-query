@@ -7,7 +7,7 @@ import { getUser } from "@/lib/getUser";
 export default async function Page() {
   const user = await getUser();
 
-  if (!user || !user.id) redirect("/sign-inin");
+  if (!user || !user.id) redirect("/sign-in");
 
   const subscriptionPlan = await getUserSubscription();
 

@@ -15,7 +15,7 @@ export default async function Page({ params }: Props) {
 
   const user = await getUser();
 
-  if (!user || !user.id) redirect("/sign-inin?callbackUrl=/dashboard");
+  if (!user || !user.id) redirect("/sign-in?callbackUrl=/dashboard");
 
   const file = await db.file.findFirst({
     where: {

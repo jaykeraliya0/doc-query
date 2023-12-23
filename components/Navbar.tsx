@@ -37,7 +37,7 @@ export default async function Navbar() {
                   Pricing
                 </Link>
                 <Link
-                  href={"/sign-inin"}
+                  href={"/sign-in"}
                   className={buttonVariants({
                     variant: "ghost",
                     size: "sm",
