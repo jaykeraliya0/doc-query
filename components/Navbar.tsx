@@ -16,7 +16,7 @@ export default async function Navbar() {
           <Link href="/" className="flex z-40 font-semibold">
             <span>
               <span className="sr-only">DocQuery</span>
-              <span className="text-green-600">Doc</span>
+              <span className="text-blue-600">Doc</span>
               <span className="text-zinc-900">Query</span>
             </span>
           </Link>
