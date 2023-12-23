@@ -1,32 +1,33 @@
 "use client";
 import {
   ChevronDown,
-  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Loader2,
   RotateCw,
   Search,
 } from "lucide-react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { useToast } from "./ui/use-toast";
 import { useResizeDetector } from "react-resize-detector";
+import { useToast } from "./ui/use-toast";
 
-import "react-pdf/dist/Page/AnnotationLayer.css";
-import "react-pdf/dist/Page/TextLayer.css";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+import "react-pdf/dist/Page/TextLayer.css";
+import SimpleBar from "simplebar-react";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { cn } from "@/lib/utils";
+import PdfFullScreen from "./PdfFullScreen";
+import { Button } from "./ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import SimpleBar from "simplebar-react";
-import PdfFullScreen from "./PdfFullScreen";
+import { Input } from "./ui/input";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -85,7 +86,7 @@ export default function PdfRenderer({ url }: Props) {
             }}
             disabled={currentPage <= 1}
           >
-            <ChevronDown className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4" />
           </Button>
 
           <div className="flex items-center gap-1.5">
@@ -119,7 +120,7 @@ export default function PdfRenderer({ url }: Props) {
             }}
             disabled={numPages === undefined || currentPage === numPages}
           >
-            <ChevronUp className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4" />
           </Button>
         </div>
 
