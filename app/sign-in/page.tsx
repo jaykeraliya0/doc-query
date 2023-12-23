@@ -6,7 +6,7 @@ export default function Page() {
   const { status } = useSession();
 
   if (status === "loading") return null;
-  if (status === "unauthenticated") return (window.location.href = "/sign-in");
+  if (status === "authenticated") return (window.location.href = "/sign-in");
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
