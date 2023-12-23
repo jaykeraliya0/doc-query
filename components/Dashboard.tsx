@@ -7,6 +7,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { getUserSubscription } from "@/lib/stripe";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import Skeleton from "react-loading-skeleton";
 
 interface Props {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscription>>;
@@ -120,11 +121,7 @@ export default function Dashboard({ subscriptionPlan }: Props) {
           ))}
         </div>
       ) : (
-        <div className="mt-16 flex flex-col items-center gap-2">
-          <Ghost className="h-8 w-8 text-zinc-800" />
-          <h3 className="font-semibold text-xl">Pretty empty around here...</h3>
-          <p>Let&apos;s upload your first PDF</p>
-        </div>
+        <Skeleton height={100} className="my-2" count={3} />
       )}
     </main>
   );
