@@ -47,7 +47,6 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL("https://doc-query.jaykeraliya.tech/"),
-    themeColor: "#ffffff",
     ...(noIndex && {
       robots: {
         index: false,
