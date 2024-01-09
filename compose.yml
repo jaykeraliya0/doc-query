@@ -45,4 +45,4 @@ volumes:
   postgres:
 
 networks:
-  doc-query:
+  doc-net:
