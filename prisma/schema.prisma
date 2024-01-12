@@ -63,4 +63,7 @@ model Message {
   userId String?
   File   File?   @relation(fields: [fileId], references: [id])
   fileId String?
+
+  @@index([userId])
+  @@index([fileId])
 }
