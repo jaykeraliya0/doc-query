@@ -52,7 +52,7 @@ model File {
 
 model Message {
   id   String @id @default(cuid()) @map("_id")
-  text String
+  text String @db.Text()
 
   isUserMessage Boolean
 
