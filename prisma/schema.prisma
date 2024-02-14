@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "postgresql"
-  url          = env("DATABASE_URL")
+  provider     = "mysql"
+  url          = env("POSTGRES_URL")
   relationMode = "prisma"
 }
 
@@ -52,7 +52,7 @@ model File {
 
 model Message {
   id   String @id @default(cuid()) @map("_id")
-  text String
+  text String @db.Text()
 
   isUserMessage Boolean
 
