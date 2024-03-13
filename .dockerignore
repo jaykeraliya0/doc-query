@@ -34,3 +34,9 @@ next-env.d.ts
 
 # postgres
 postgres
+
+Dockerfile
+.dockerignore
+README.md
+.next
+.git
