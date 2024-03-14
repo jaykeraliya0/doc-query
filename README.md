@@ -1,4 +1,4 @@
-# doc-query
+# DocQuery
 
 **doc-query** is a sophisticated AI-powered document query system designed to facilitate seamless interaction with PDF documents. Users can upload PDF files and ask questions related to the content of those documents. Leveraging state-of-the-art technologies, the system provides real-time responses to user queries, ensuring an intuitive and efficient user experience.
 
