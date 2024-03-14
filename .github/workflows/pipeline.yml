@@ -13,6 +13,27 @@ jobs:
       - name: Check out repository code 🛎️
         uses: actions/checkout@v4
 
+      - name: Create .env file 📝
+        run: |
+          echo "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}" >> .env
+          echo "POSTGRES_URL=${{ secrets.POSTGRES_URL }}" >> .env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "GITHUB_APP_CLIENT_ID=${{ secrets.GH_APP_CLIENT_ID }}" >> .env
+          echo "GITHUB_APP_CLIENT_SECRET=${{ secrets.GH_APP_CLIENT_SECRET }}" >> .env
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env
+          echo "NEXTAUTH_SECRET=${{ secrets.NEXTAUTH_SECRET }}" >> .env
+          echo "STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY }}" >> .env
+          echo "STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }}" >> .env
+          echo "AWS_BUCKET_NAME=${{ secrets.AWS_BUCKET_NAME }}" >> .env
+          echo "AWS_BUCKET_REGION=${{ secrets.AWS_BUCKET_REGION }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "PINECONE_API_KEY=${{ secrets.PINECONE_API_KEY }}" >> .env
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env
+
       - name: Set up Docker Buildx 🚀
         uses: docker/setup-buildx-action@v3
 
