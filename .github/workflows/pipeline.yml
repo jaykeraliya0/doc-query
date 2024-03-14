@@ -31,7 +31,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME}}/${{ secrets.docker_repository }}:${{ github.sha }}
             ${{ secrets.DOCKER_HUB_USERNAME}}/${{ secrets.docker_repository }}:latest
-           build-args: |
+          build-args: |
             NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}
             POSTGRES_URL=${{ secrets.POSTGRES_URL }}
             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
