@@ -52,7 +52,6 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_HUB_USERNAME}}/${{ secrets.docker_repository }}:${{ github.sha }}
             ${{ secrets.DOCKER_HUB_USERNAME}}/${{ secrets.docker_repository }}:latest
-          secrets: |
             "NEXTAUTH_URL=${{ secrets.NEXTAUTH_URL }}"
             "POSTGRES_URL=${{ secrets.POSTGRES_URL }}"
             "POSTGRES_USER=${{ secrets.POSTGRES_USER }}"
