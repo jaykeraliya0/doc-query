@@ -32,15 +32,9 @@
     "date-fns": "^2.30.0",
     "langchain": "^0.0.208",
     "lucide-react": "^0.297.0",
-<<<<<<< HEAD
     "next": "14.0.4",
     "next-auth": "^4.24.7",
     "openai": "^4.47.1",
-=======
-    "next": "14.1.1",
-    "next-auth": "^4.24.5",
-    "openai": "^4.22.0",
->>>>>>> 9c10b0d3fcccb9926d3236999291d6387ae5b03d
     "pdf-parse": "^1.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
