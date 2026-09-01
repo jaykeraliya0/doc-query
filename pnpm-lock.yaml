@@ -64,7 +64,7 @@ dependencies:
     version: 2.30.0
   langchain:
     specifier: ^1.4.2
-    version: 1.4.2(@langchain/core@1.2.4)(openai@4.47.1)(react-dom@18.3.1)(react@18.3.1)
+    version: 1.4.2(@langchain/core@1.2.9)(openai@4.47.1)(react-dom@18.3.1)(react@18.3.1)
   lucide-react:
     specifier: ^0.297.0
     version: 0.297.0(react@18.3.1)
@@ -138,7 +138,7 @@ devDependencies:
     version: 18.3.0
   autoprefixer:
     specifier: ^10.4.19
-    version: 10.4.19(postcss@8.5.23)
+    version: 10.4.19(postcss@8.5.24)
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -146,8 +146,8 @@ devDependencies:
     specifier: 14.0.4
     version: 14.0.4(eslint@8.57.0)(typescript@5.4.5)
   postcss:
-    specifier: ^8.5.23
-    version: 8.5.23
+    specifier: ^8.5.24
+    version: 8.5.24
   prisma:
     specifier: ^5.14.0
     version: 5.14.0
@@ -1205,14 +1205,14 @@ packages:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@langchain/core@1.2.4(openai@4.47.1):
-    resolution: {integrity: sha512-GIrJktdsFPx8gM0C3VyikkeYGZAV7iRIzUJuS5tFatiKLExybou0LI0MuxH9kksN38quyfWdQDl20lIEAEVkVA==}
+  /@langchain/core@1.2.9(openai@4.47.1):
+    resolution: {integrity: sha512-conzSEj9Zu1AyXJLXsSbgrtxtxinmI1yGqQ5CIJZSoV5rvv+yvQE/vgBnoySpBQ/bl3YPgj2FL/gbDjWykLSfg==}
     engines: {node: '>=20'}
     dependencies:
       '@cfworker/json-schema': 4.1.1
       '@standard-schema/spec': 1.1.0
       js-tiktoken: 1.0.21
-      langsmith: 0.8.9(openai@4.47.1)
+      langsmith: 0.10.0(openai@4.47.1)
       mustache: 4.2.0
       p-queue: 6.6.2
       zod: 3.25.76
@@ -1224,17 +1224,17 @@ packages:
       - ws
     dev: false
 
-  /@langchain/langgraph-checkpoint@1.0.2(@langchain/core@1.2.4):
+  /@langchain/langgraph-checkpoint@1.0.2(@langchain/core@1.2.9):
     resolution: {integrity: sha512-F4E5Tr0nt8FGghgdscJtHw+ABzChOHeI80R7Y1pjIHdiJom6c2ieo76vL+FWiny80JmoGqhrVAEIWrw0cXKPxg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': ^1.1.44
     dependencies:
-      '@langchain/core': 1.2.4(openai@4.47.1)
+      '@langchain/core': 1.2.9(openai@4.47.1)
       uuid: 10.0.0
     dev: false
 
-  /@langchain/langgraph-sdk@1.9.5(@langchain/core@1.2.4)(react-dom@18.3.1)(react@18.3.1):
+  /@langchain/langgraph-sdk@1.9.5(@langchain/core@1.2.9)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-NMcz1rEKuVz07ZqcSzNJZCZR9FppRNh+/YWjCKtwZ7a/WNytDEAh26qXTtmDQZ7+J+1nEXhHym1wZDrOxA99wg==}
     peerDependencies:
       '@langchain/core': ^1.1.44
@@ -1252,7 +1252,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@langchain/core': 1.2.4(openai@4.47.1)
+      '@langchain/core': 1.2.9(openai@4.47.1)
       '@langchain/protocol': 0.0.15
       '@types/json-schema': 7.0.15
       p-queue: 9.3.0
@@ -1262,7 +1262,7 @@ packages:
       uuid: 13.0.2
     dev: false
 
-  /@langchain/langgraph@1.3.2(@langchain/core@1.2.4)(react-dom@18.3.1)(react@18.3.1)(zod@3.25.76):
+  /@langchain/langgraph@1.3.2(@langchain/core@1.2.9)(react-dom@18.3.1)(react@18.3.1)(zod@3.25.76):
     resolution: {integrity: sha512-SL7Ktsr681R7da+1b2MVOWEbaCoFJOXEJPTGOjg4JIG4C7quWbTYC8DzxhcCxte6D/8cGp0rYDBnbKLXEpNqlA==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -1273,9 +1273,9 @@ packages:
       zod-to-json-schema:
         optional: true
     dependencies:
-      '@langchain/core': 1.2.4(openai@4.47.1)
-      '@langchain/langgraph-checkpoint': 1.0.2(@langchain/core@1.2.4)
-      '@langchain/langgraph-sdk': 1.9.5(@langchain/core@1.2.4)(react-dom@18.3.1)(react@18.3.1)
+      '@langchain/core': 1.2.9(openai@4.47.1)
+      '@langchain/langgraph-checkpoint': 1.0.2(@langchain/core@1.2.9)
+      '@langchain/langgraph-sdk': 1.9.5(@langchain/core@1.2.9)(react-dom@18.3.1)(react@18.3.1)
       '@langchain/protocol': 0.0.15
       '@standard-schema/spec': 1.1.0
       uuid: 10.0.0
@@ -3020,7 +3020,7 @@ packages:
     engines: {node: '>=4'}
     dev: false
 
-  /autoprefixer@10.4.19(postcss@8.5.23):
+  /autoprefixer@10.4.19(postcss@8.5.24):
     resolution: {integrity: sha512-BaENR2+zBZ8xXhM4pUaKUxlVdxZ0EZhjvbopwnXmxRUfqDmwSpC2lAi/QXvx7NRdPCo1WKEcEF6mV64si1z4Ew==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -3032,7 +3032,7 @@ packages:
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
-      postcss: 8.5.23
+      postcss: 8.5.24
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -4627,15 +4627,15 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /langchain@1.4.2(@langchain/core@1.2.4)(openai@4.47.1)(react-dom@18.3.1)(react@18.3.1):
+  /langchain@1.4.2(@langchain/core@1.2.9)(openai@4.47.1)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-SLGipy0r4nqQD0aiUOBYLMeGFfB/QiYnMndfZ8sGN89vXDCIXbYqcE7G/4QDDX3nZsM7/emQpoScmlxEX6sDnQ==}
     engines: {node: '>=20'}
     peerDependencies:
       '@langchain/core': ^1.1.48
     dependencies:
-      '@langchain/core': 1.2.4(openai@4.47.1)
-      '@langchain/langgraph': 1.3.2(@langchain/core@1.2.4)(react-dom@18.3.1)(react@18.3.1)(zod@3.25.76)
-      '@langchain/langgraph-checkpoint': 1.0.2(@langchain/core@1.2.4)
+      '@langchain/core': 1.2.9(openai@4.47.1)
+      '@langchain/langgraph': 1.3.2(@langchain/core@1.2.9)(react-dom@18.3.1)(react@18.3.1)(zod@3.25.76)
+      '@langchain/langgraph-checkpoint': 1.0.2(@langchain/core@1.2.9)
       langsmith: 0.7.2(openai@4.47.1)
       zod: 3.25.76
     transitivePeerDependencies:
@@ -4651,8 +4651,8 @@ packages:
       - zod-to-json-schema
     dev: false
 
-  /langsmith@0.7.2(openai@4.47.1):
-    resolution: {integrity: sha512-3dZUwQDJluxi2ih5eIygFODtlrQKrs3Tua0Ck3l+DAUkSGFkB1Dc0JPqkGbqiVSN+TQDElnkev/ydAOAz6jndA==}
+  /langsmith@0.10.0(openai@4.47.1):
+    resolution: {integrity: sha512-DMFkqH7Az3DCXdhPzb17kdbcgcO2stiSC8ct9j34rivR7mpUrNSHgMh0UQQ2trPisRTrqH8RYTCBvdDBUgbfig==}
     peerDependencies:
       '@opentelemetry/api': '*'
       '@opentelemetry/exporter-trace-otlp-proto': '*'
@@ -4675,8 +4675,8 @@ packages:
       p-queue: 6.6.2
     dev: false
 
-  /langsmith@0.8.9(openai@4.47.1):
-    resolution: {integrity: sha512-6ikTB5SO+3SlBQ/+oH8K/JzhglxB8AM4RAe5bHzgWSEIHTgTe+b71bSjf1fDvlYuEXoiPn6uP10BbczrbznUnA==}
+  /langsmith@0.7.2(openai@4.47.1):
+    resolution: {integrity: sha512-3dZUwQDJluxi2ih5eIygFODtlrQKrs3Tua0Ck3l+DAUkSGFkB1Dc0JPqkGbqiVSN+TQDElnkev/ydAOAz6jndA==}
     peerDependencies:
       '@opentelemetry/api': '*'
       '@opentelemetry/exporter-trace-otlp-proto': '*'
@@ -5222,8 +5222,8 @@ packages:
       big-integer: 1.6.52
     dev: false
 
-  /nanoid@3.3.17:
-    resolution: {integrity: sha512-xQLf0A3HOMlgHq0n247/LRuAOYmB7dXJ/DvAxGvsSBij45XtBSmQycu+F8ODbHwns/XyFZagyL1+J0Offw1E0g==}
+  /nanoid@3.3.18:
+    resolution: {integrity: sha512-DTg4MJbGMWkfi6VZFdNt2/caMbQy4Ou+Op/hJQvGEWcnVfoA1QA+xzRKAzw9jD6+GVOOeYr/mIcuDSdug6F6+w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -5643,27 +5643,27 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /postcss-import@15.1.0(postcss@8.5.23):
+  /postcss-import@15.1.0(postcss@8.5.24):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.5.23
+      postcss: 8.5.24
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  /postcss-js@4.0.1(postcss@8.5.23):
+  /postcss-js@4.0.1(postcss@8.5.24):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.5.23
+      postcss: 8.5.24
 
-  /postcss-load-config@4.0.2(postcss@8.5.23):
+  /postcss-load-config@4.0.2(postcss@8.5.24):
     resolution: {integrity: sha512-bSVhyJGL00wMVoPUzAVAnbEoWyqRxkjv64tUl427SKnPrENtq6hJwUojroMz2VB+Q1edmi4IfrAPpami5VVgMQ==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -5676,16 +5676,16 @@ packages:
         optional: true
     dependencies:
       lilconfig: 3.1.1
-      postcss: 8.5.23
+      postcss: 8.5.24
       yaml: 2.4.2
 
-  /postcss-nested@6.0.1(postcss@8.5.23):
+  /postcss-nested@6.0.1(postcss@8.5.24):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.5.23
+      postcss: 8.5.24
       postcss-selector-parser: 6.0.16
 
   /postcss-selector-parser@6.0.10:
@@ -5710,16 +5710,16 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.17
+      nanoid: 3.3.18
       picocolors: 1.1.1
       source-map-js: 1.2.1
     dev: false
 
-  /postcss@8.5.23:
-    resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
+  /postcss@8.5.24:
+    resolution: {integrity: sha512-8RyVklq0owXUTa4xlpzu4l9AaVKIdQvAcOHZWaMh98HgySsUtxRVf/chRe3dsSLqb6i40BzGRzEUddRaI+9TSw==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
-      nanoid: 3.3.17
+      nanoid: 3.3.18
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
@@ -6478,11 +6478,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.1
-      postcss: 8.5.23
-      postcss-import: 15.1.0(postcss@8.5.23)
-      postcss-js: 4.0.1(postcss@8.5.23)
-      postcss-load-config: 4.0.2(postcss@8.5.23)
-      postcss-nested: 6.0.1(postcss@8.5.23)
+      postcss: 8.5.24
+      postcss-import: 15.1.0(postcss@8.5.24)
+      postcss-js: 4.0.1(postcss@8.5.24)
+      postcss-load-config: 4.0.2(postcss@8.5.24)
+      postcss-nested: 6.0.1(postcss@8.5.24)
       postcss-selector-parser: 6.0.16
       resolve: 1.22.8
       sucrase: 3.35.0
